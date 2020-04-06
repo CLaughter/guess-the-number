@@ -26,11 +26,9 @@ guessBtn.addEventListener("click", function () {
     setMessage(`Please choose a number between ${min} and ${max}`, "red");
   }
   // Check if winner
-  if (guess === winningNum) {
+  else if (guess === winningNum) {
     // Game over - won
-    guessInput.disabled = true;
-    guessInput.style.borderColor = "green";
-    setMessage(`${winMsg} ${winningNum}`, "green");
+    gameOver(true, `${winMsg} ${winningNum}`);
   }
   // Check if incorrect
   else {
@@ -38,11 +36,11 @@ guessBtn.addEventListener("click", function () {
     let remaining = (guessesLeft -= 1);
     if (guessesLeft === 0) {
       // Game over - lost
-      guessInput.disabled = true;
-      guessInput.style.borderColor = "red";
-      setMessage(`${lossMsg} ${winningNum}`, "red");
+      gameOver(false, `${lossMsg} ${winningNum}`);
     } else {
       // Game continues - wrong answer
+      guessInput.style.borderColor = "red";
+      guessInput.value = "";
       setMessage(
         "Nope. You have " + `${remaining}` + " guesses remaining.",
         "blue"
@@ -51,6 +49,16 @@ guessBtn.addEventListener("click", function () {
   }
 });
 
+// Game over
+function gameOver(won, msg) {
+  let color;
+  won === true ? (color = "green") : (color = "red");
+
+  guessInput.disabled = true;
+  guessInput.style.borderColor = color;
+  message.style.color = color;
+  setMessage(msg);
+}
 // Set message
 function setMessage(msg, color) {
   message.style.color = color;
