@@ -26,7 +26,7 @@ guessBtn.addEventListener("click", function () {
     setMessage(`Please choose a number between ${min} and ${max}`, "red");
   }
   // Check if winner
-  if (guess === winningNum) {
+  else if (guess === winningNum) {
     // Game over - won
     guessInput.disabled = true;
     guessInput.style.borderColor = "green";
